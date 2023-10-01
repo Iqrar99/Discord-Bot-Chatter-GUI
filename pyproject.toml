@@ -1,0 +1,48 @@
+[tool.ruff]
+show-source = true
+line-length = 120
+target-version = "py310"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+
+ignore = [
+    "C901",  # function is too complex
+    "B009",  # `getattr` with constant value
+    "B010",  # `setattr` with constant value
+    "B904",  # `raise` with `None` value
+    "C901",  # too complex
+    "B905",  # `zip()` explicit `strict=`, python3.8 has no `strict` parameter
+]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".venv",
+    ".yml",
+    ".txt",
+    ".html",
+    ".js",
+    ".css",
+    ".json",
+]
+
+[tool.isort]
+py_version=310
+split_on_trailing_comma = true
+force_alphabetical_sort_within_sections = true
+group_by_package = true
+line_length = 120
+profile = "black"
+skip_gitignore = true
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+skip-string-normalization = true
