@@ -2,6 +2,7 @@ import logging
 
 import aiohttp
 import discord
+import wx
 from discord.ext.commands import Bot
 
 from app import __version__
@@ -26,6 +27,11 @@ class BotClient(Bot):
         print("Logged in as {}".format(self.user))
         print("------------------")
 
+    async def on_connect(self) -> None:
+        if hasattr(self, 'GUIApp'):
+            app: wx.App = self.GUIApp()
+            app.MainLoop()
+
     async def setup_hook(self) -> None:
         if not self.session:
             self.session = aiohttp.ClientSession()
@@ -37,5 +43,7 @@ class BotClient(Bot):
         await self.session.close()
         await super().close()
 
-    async def start(self) -> None:
+    async def start(self, GUIApp: wx.App) -> None:
+        self.GUIApp = GUIApp
+
         return await super().start(BOT_TOKEN, reconnect=True)
